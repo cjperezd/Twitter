@@ -7,7 +7,7 @@ define([
    'User'
 ], function($, _, Backbone, User){
    var initialize = function(){
-      User.initialize();
+      //User.initialize();
    }
 
    return {
