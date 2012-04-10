@@ -8,7 +8,7 @@ require.config({
     'Underscore': "libs/underscore/underscore-min",
     'Backbone': "libs/backbone/backbone",
     'User': 'models/user.Model',
-    'Mvc-utils': 'js/mvc-utils',
+    'GlobalMvc': 'js/global-mvc',
     'App': "app"
   }
 
@@ -18,6 +18,7 @@ require.config({
 require( [
   'App',
   'order!jQuery',
+  'order!jQueryMobile',
   'order!Underscore',
   'order!Backbone'
 ], function(App){
