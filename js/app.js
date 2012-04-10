@@ -3,9 +3,8 @@
 define([
    'jQuery',
    'Underscore',
-   'Backbone',
-   'User'
-], function($, _, Backbone, User){
+   'Backbone'
+], function($, _, Backbone){
    var initialize = function(){
       //User.initialize();
    }

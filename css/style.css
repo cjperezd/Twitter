@@ -1,0 +1,30 @@
+#signIn
+{
+	width: 25%;
+}
+#text
+{
+	float: left;
+}
+img
+{
+	margin: 4%;
+	float: left;
+}
+#userProfile, #container
+{
+	background-color: white;
+	border-radius: 15px;
+	margin: 2%;
+	height: 200px;
+	float: left;
+	border: 1px solid #CCC;
+}
+#userProfile
+{
+	width: 20%;
+}
+#container
+{
+	width: 60%;
+}
