@@ -9,7 +9,21 @@ define([
 
         defaults: {
             text: " ... ",
-            favorite: false
+            data: "",
+            favorite: "",
+            created_at: "",
+            profile_image_url: "",
+            from_user_id_str: "",
+            id_str: "",
+            from_user: "",
+            to_user_id: "",
+            metadata: "",
+            id: "",
+            geo: "",
+            from_user_id: "",
+            iso_language_code: "",
+            source: "",
+            to_user_id_str: ""
         },
         
         initialize: function(){
@@ -17,7 +31,6 @@ define([
         }
   });
   
-  // You usually don't return a model instantiated
   return twitt;
   
 });
