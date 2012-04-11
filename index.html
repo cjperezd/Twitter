@@ -1,43 +1,34 @@
-
 <!DOCTYPE html>
-
 <html>
-   <head>
-      <title>Twitter</title>
-      
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-     
-      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" >
-      <link rel="stylesheet" href="css/style.css" >
-     
-     <script data-main="js/main" src="js/libs/require/require.js"></script>
-  </head>
+    
+<head>
+    <title>Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.min.css" >
+    <link rel="stylesheet" href="css/style.css" >
+    <script data-main="js/main" src="js/libs/require/require.js"></script>
+</head>
+
 <body>
+    <!-- =========================================================================================== -->
+    <section data-role="page" id="home">
+        <header data-role="header" data-theme="b">
+            <h1>Twitter App</h1>
+        </header><!-- /header -->
 
-
-  <!-- =========================================================================================== -->
-  <div data-role="page" id="home">
-     
-     <header data-role="header" data-theme="b">
-        <h1>Twitter App</h1>
-     </header><!-- /header -->
-          
-     <div data-role="content" data-theme="c">
-      <div data-role="content" id="text">
-        <p> Welcome to the Twitter application made by Team 1.</p>
-        <p> In order to get the full functionality of the application you must first log in to your Twitter account.</p>
-        <p> Have fun! </p>
-      </div>  
-        <img src="css/images/sign-in.png" id="signIn"/>
-                  
-     </div><!-- /content -->
-     
-     <footer data-role="footer" data-theme="b">
+        <div data-role="content" data-theme="c">
+            <div data-role="content" id="text">
+                <p> Welcome to the Twitter application made by Team 1.</p>
+                <p> In order to get the full functionality of the application you must first log in to your Twitter account.</p>
+                <p> Have fun! </p>
+            </div>  
+            <a href="api/service/RequestToken.php" ><img src="./css/images/sign-in.png" /></a>
+        </div><!-- /content -->
+        
+        <footer data-role="footer" data-theme="b">
         <h4>Team 1 - Globant Bootcamp HTML5 & QC</h4>
-     </footer><!-- /footer -->
-  </div><!-- /page -->
+        </footer><!-- /footer -->
+    </section><!-- /page -->
 
 </body>
 </html>
-
-
