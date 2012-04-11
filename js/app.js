@@ -3,10 +3,12 @@
 define([
    'jQuery',
    'Underscore',
-   'Backbone'
-], function($, _, Backbone){
+   'Backbone',
+   'DashboardRouter'
+], function($, _, Backbone, DashboardRouter){
    var initialize = function(){
-      //User.initialize();
+      DashboardRouter.initialize();
+      //var user = new User();
    }
 
    return {

@@ -7,8 +7,12 @@ require.config({
     'jQueryMobile': "libs/jquery/jquery.mobile-1.0.1.min",
     'Underscore': "libs/underscore/underscore-min",
     'Backbone': "libs/backbone/backbone",
+    // Models:
     'User': 'models/user.Model',
-    'GlobalMvc': 'js/global-mvc',
+    //Routers:
+    'DashboardRouter': 'routers/dashboardRouter',
+    
+//    'GlobalMvc': 'js/global-mvc',
     'App': "app"
   }
 

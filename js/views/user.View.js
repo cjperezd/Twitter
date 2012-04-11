@@ -8,7 +8,7 @@ define([
    ], function( $, _, Backbone, UserModel, UserTemplate){
       var UserView = Backbone.View.extend({
          
-         el: $("#userViewContainer"), //TODO
+         el: $("#userProfile"), //TODO
          
          var template = _.template( UserTemplate );
          
