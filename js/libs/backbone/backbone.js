@@ -1,18 +1,30 @@
-//     Backbone.js 0.9.2
+// Backbone.js 0.9.2
 
-//     (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
-//     Backbone may be freely distributed under the MIT license.
-//     For all details and documentation:
-//     http://backbonejs.org
+// (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
+// Backbone may be freely distributed under the MIT license.
+// For all details and documentation:
+// http://backbonejs.org
 
-(function(){
+(function(root, factory) {
+  // Set up Backbone appropriately for the environment.
+  if (typeof exports !== 'undefined') {
+    // Node/CommonJS, no need for jQuery in that case.
+    factory(root, exports, require('underscore'));
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
+    define(['underscore', 'jquery', 'exports'], function(_, $, exports) {
+      // Export global even in AMD case in case this script is loaded with
+      // others that may still expect a global Backbone.
+      root.Backbone = factory(root, exports, _, $);
+    });
+  } else {
+    // Browser globals
+    root.Backbone = factory(root, {}, root._, (root.jQuery || root.Zepto || root.ender));
+  }
+}(this, function(root, Backbone, _, $) {
 
   // Initial Setup
   // -------------
-
-  // Save a reference to the global object (`window` in the browser, `global`
-  // on the server).
-  var root = this;
 
   // Save the previous value of the `Backbone` variable, so that it can be
   // restored later on, if `noConflict` is used.
@@ -22,24 +34,8 @@
   var slice = Array.prototype.slice;
   var splice = Array.prototype.splice;
 
-  // The top-level namespace. All public Backbone classes and modules will
-  // be attached to this. Exported for both CommonJS and the browser.
-  var Backbone;
-  if (typeof exports !== 'undefined') {
-    Backbone = exports;
-  } else {
-    Backbone = root.Backbone = {};
-  }
-
   // Current version of the library. Keep in sync with `package.json`.
   Backbone.VERSION = '0.9.2';
-
-  // Require Underscore, if we're on the server, and it's not already present.
-  var _ = root._;
-  if (!_ && (typeof require !== 'undefined')) _ = require('underscore');
-
-  // For Backbone's purposes, jQuery, Zepto, or Ender owns the `$` variable.
-  var $ = root.jQuery || root.Zepto || root.ender;
 
   // Set the JavaScript library that will be used for DOM manipulation and
   // Ajax calls (a.k.a. the `$` variable). By default Backbone will use: jQuery,
@@ -54,7 +50,7 @@
   // to its previous owner. Returns a reference to this Backbone object.
   Backbone.noConflict = function() {
     root.Backbone = previousBackbone;
-    return this;
+    return Backbone;
   };
 
   // Turn on `emulateHTTP` to support legacy HTTP servers. Setting this option
@@ -78,10 +74,10 @@
   // custom events. You may bind with `on` or remove with `off` callback functions
   // to an event; trigger`-ing an event fires all callbacks in succession.
   //
-  //     var object = {};
-  //     _.extend(object, Backbone.Events);
-  //     object.on('expand', function(){ alert('expanded'); });
-  //     object.trigger('expand');
+  // var object = {};
+  // _.extend(object, Backbone.Events);
+  // object.on('expand', function(){ alert('expanded'); });
+  // object.trigger('expand');
   //
   var Events = Backbone.Events = {
 
@@ -95,7 +91,7 @@
       calls = this._callbacks || (this._callbacks = {});
 
       // Create an immutable callback list, allowing traversal during
-      // modification.  The tail is an empty object that will always be used
+      // modification. The tail is an empty object that will always be used
       // as the next node.
       while (event = events.shift()) {
         list = calls[event];
@@ -178,7 +174,7 @@
   };
 
   // Aliases for backwards compatibility.
-  Events.bind   = Events.on;
+  Events.bind = Events.on;
   Events.unbind = Events.off;
 
   // Backbone.Model
@@ -216,7 +212,7 @@
     changed: null,
 
     // A hash of attributes that have silently changed since the last time
-    // `change` was called.  Will become pending attributes on the next call.
+    // `change` was called. Will become pending attributes on the next call.
     _silent: null,
 
     // A hash of attributes that have changed since the last `'change'` event
@@ -299,7 +295,7 @@
         // Update or delete the current value.
         options.unset ? delete now[attr] : now[attr] = val;
 
-        // If the new and previous value differ, record the change.  If not,
+        // If the new and previous value differ, record the change. If not,
         // then remove changes for this attribute.
         if (!_.isEqual(prev[attr], val) || (_.has(now, attr) != _.has(prev, attr))) {
           this.changed[attr] = val;
@@ -736,7 +732,7 @@
     // you can reset the entire set with a new list of models, without firing
     // any `add` or `remove` events. Fires `reset` when finished.
     reset: function(models, options) {
-      models  || (models = []);
+      models || (models = []);
       options || (options = {});
       for (var i = 0, l = this.models.length; i < l; i++) {
         this._removeReference(this.models[i]);
@@ -802,7 +798,7 @@
     _reset: function(options) {
       this.length = 0;
       this.models = [];
-      this._byId  = {};
+      this._byId = {};
       this._byCid = {};
     },
 
@@ -874,9 +870,9 @@
 
   // Cached regular expressions for matching named param parts and splatted
   // parts of route strings.
-  var namedParam    = /:\w+/g;
-  var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[-[\]{}()+?.,\\^$|#\s]/g;
+  var namedParam = /:\w+/g;
+  var splatParam = /\*\w+/g;
+  var escapeRegExp = /[-[\]{}()+?.,\\^$|#\s]/g;
 
   // Set up all inheritable **Backbone.Router** properties and methods.
   _.extend(Router.prototype, Events, {
@@ -887,9 +883,9 @@
 
     // Manually bind a single named route to a callback. For example:
     //
-    //     this.route('search/:query/p:num', 'search', function(query, num) {
-    //       ...
-    //     });
+    // this.route('search/:query/p:num', 'search', function(query, num) {
+    // ...
+    // });
     //
     route: function(route, name, callback) {
       Backbone.history || (Backbone.history = new History);
@@ -998,13 +994,13 @@
 
       // Figure out the initial configuration. Do we need an iframe?
       // Is pushState desired ... is it available?
-      this.options          = _.extend({}, {root: '/'}, this.options, options);
+      this.options = _.extend({}, {root: '/'}, this.options, options);
       this._wantsHashChange = this.options.hashChange !== false;
-      this._wantsPushState  = !!this.options.pushState;
-      this._hasPushState    = !!(this.options.pushState && window.history && window.history.pushState);
-      var fragment          = this.getFragment();
-      var docMode           = document.documentMode;
-      var oldIE             = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
+      this._wantsPushState = !!this.options.pushState;
+      this._hasPushState = !!(this.options.pushState && window.history && window.history.pushState);
+      var fragment = this.getFragment();
+      var docMode = document.documentMode;
+      var oldIE = (isExplorer.exec(navigator.userAgent.toLowerCase()) && (!docMode || docMode <= 7));
 
       if (oldIE) {
         this.iframe = $('<iframe src="javascript:0" tabindex="-1" />').hide().appendTo('body')[0].contentWindow;
@@ -1025,7 +1021,7 @@
       // opened by a non-pushState browser.
       this.fragment = fragment;
       var loc = window.location;
-      var atRoot  = loc.pathname == this.options.root;
+      var atRoot = loc.pathname == this.options.root;
 
       // If we've started off with a route from a `pushState`-enabled browser,
       // but we're currently in a browser that doesn't support it...
@@ -1187,12 +1183,12 @@
     // For small amounts of DOM Elements, where a full-blown template isn't
     // needed, use **make** to manufacture elements, one at a time.
     //
-    //     var el = this.make('li', {'class': 'row'}, this.model.escape('title'));
+    // var el = this.make('li', {'class': 'row'}, this.model.escape('title'));
     //
     make: function(tagName, attributes, content) {
       var el = document.createElement(tagName);
       if (attributes) $(el).attr(attributes);
-      if (content) $(el).html(content);
+      if (content != null) $(el).html(content);
       return el;
     },
 
@@ -1210,11 +1206,11 @@
     //
     // *{"event selector": "callback"}*
     //
-    //     {
-    //       'mousedown .title':  'edit',
-    //       'click .button':     'save'
-    //       'click .open':       function(e) { ... }
-    //     }
+    // {
+    // 'mousedown .title': 'edit',
+    // 'click .button': 'save'
+    // 'click .open': function(e) { ... }
+    // }
     //
     // pairs. Callbacks will be bound to the view, with `this` set properly.
     // Uses event delegation for efficiency.
@@ -1294,7 +1290,7 @@
     'create': 'POST',
     'update': 'PUT',
     'delete': 'DELETE',
-    'read':   'GET'
+    'read': 'GET'
   };
 
   // Override this function to change the manner in which Backbone persists
@@ -1428,5 +1424,5 @@
     throw new Error('A "url" property or function must be specified');
   };
 
-}).call(this);
-
+  return Backbone;
+}));
