@@ -19,12 +19,16 @@ define([
     dashboard: function(){
        var user = UserModel;
        user.initialize();
-       
+       console.log('redirecting---');
        //TODO create a view to show the user name and data in the page...
        //var userView = new UserView( {'model': user} );
        //userView.render();
   		 
-       $.mobile.changePage( '#mainPage', {transition: "slideup"} );
+  		 var url = '#mainPage',
+           effect = 'slideup',
+           reverse = false,
+           changeHash = false;
+       $.mobile.changePage( url, {transition: effect}, reverse, changeHash );
     },
     
     defaultAction: function(actions){
