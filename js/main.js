@@ -29,7 +29,7 @@ require( [
   'order!Underscore',
   'order!Backbone'
 ], function(App){
-  $.mobile.hashListeningEnabled = false;
-  $.mobile.pushStateEnabled = false;
+//  $.mobile.hashListeningEnabled = false;
+//  $.mobile.pushStateEnabled = false;
   App.initialize();
 });

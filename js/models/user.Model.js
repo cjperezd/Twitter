@@ -31,7 +31,7 @@ define([
             });
             
             return user;
-        }
+     }
     
     return {
      initialize: initialize
