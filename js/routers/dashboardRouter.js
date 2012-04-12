@@ -1,22 +1,30 @@
 define([
-  'jQuery',
+//  'jQuery',
   'Underscore',
-  'Backbone'
-], function($, _, Backbone ){
+  'Backbone',
+  'UserModel'
+  //'UserView'
+], function( _, Backbone, UserModel){
   
   var DashboardRouter = Backbone.Router.extend({
     routes: {
       'dashboard': 'dashboard',
       // Default
-      '*actions': 'defaultAction'
+//      '*actions': 'defaultAction'
     },
     
     /*
      * Create the view for the user model and change to the main page.  
      */
     dashboard: function(){
-       $.mobile.changePage( '#mainPage', {transition: "slideup"} );
+       var user = UserModel;
+       user.initialize();
+       
        //TODO create a view to show the user name and data in the page...
+       //var userView = new UserView( {'model': user} );
+       //userView.render();
+  		 
+       $.mobile.changePage( '#mainPage', {transition: "slideup"} );
     },
     
     defaultAction: function(actions){
@@ -25,12 +33,14 @@ define([
       console.log('No route:', actions);
     }
   });
-
+  
   var initialize = function(){
-     var dashboard_router = new DashboardRouter;
+     var dashboard_router = new DashboardRouter();
+     Backbone.history.start();
+     return dashboard_router;
   };
   
   return {
      initialize: initialize
-  };
+  }
 });

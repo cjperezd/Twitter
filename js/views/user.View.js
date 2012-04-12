@@ -1,16 +1,16 @@
 
 define([
-   'jQuery',
+//   'jQuery',
    'Underscore',
    'Backbone',
    'UserModel',
-   'text!../../templates/user-template.html'
+   'text!UserTemplate'
    ], function( $, _, Backbone, UserModel, UserTemplate){
       var UserView = Backbone.View.extend({
          
-         el: $("#userProfile"), //TODO
+         el: $("#userProfile"),
          
-         var template = _.template( UserTemplate );
+         template: _.template( UserTemplate ),
          
          initialize: function(){
             _.bindAll(this, 'render');
@@ -23,8 +23,6 @@ define([
          
    });
    
-   return {
-      new UserView;
-   }
+   return new UserView();
    
 });
