@@ -23,6 +23,7 @@ define([
                 crossDomain: true,
                 success: function(res){
                     var data =  eval('(' + res + ')');
+                    console.log(  );
                     user.set({"userName" : data.screen_name });
                 },
                 error: function(){

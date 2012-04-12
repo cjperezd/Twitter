@@ -4,15 +4,16 @@ define([
    'Underscore',
    'Backbone',
    'UserModel',
-   'text!UserTemplate'
-   ], function( $, _, Backbone, UserModel, UserTemplate){
+   'text!../templates/user-template.html'
+   ], function( _, Backbone, UserModel, UserTemplate){
       var UserView = Backbone.View.extend({
          
          el: $("#userProfile"),
          
-         template: _.template( UserTemplate ),
+         template: _.template( '<div class=""><div> User Name: <%= userName %> </div></div>' ),
          
          initialize: function(){
+            console.log(UserTemplate);
             _.bindAll(this, 'render');
          },
          

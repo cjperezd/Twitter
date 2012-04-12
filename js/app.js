@@ -3,14 +3,16 @@
 define([
    'Underscore',
    'Backbone',
-   'DashboardRouter'
-], function( _, Backbone, DashboardRouter){
+   'UserModel',
+   'UserView' 
+], function( _, Backbone,UserModel, UserView){
    var initialize = function(){
-      DashboardRouter.initialize();
+   		var user = UserModel.initialize();
+        var userView = new UserView( {'model': user} );
    }
 
    return {
       initialize: initialize
-   };
+   }
 
 });

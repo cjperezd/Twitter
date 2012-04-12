@@ -25,9 +25,9 @@ require.config({
 require( [
   'App',
 //  'order!jQuery',
-  'order!jQueryMobile',
-  'order!Underscore',
-  'order!Backbone'
+  'order!libs/jquery/jquery.mobile-1.0.1.min',
+  'order!libs/underscore/underscore-min',
+  'order!libs/backbone/backbone'
 ], function(App){
 //  $.mobile.hashListeningEnabled = false;
 //  $.mobile.pushStateEnabled = false;
