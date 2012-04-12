@@ -1,37 +1,40 @@
-
 define([
-  'Underscore',
-  'Backbone'
+    'Underscore',
+    'Backbone'
 ], function( _, Backbone ){
-  var User = Backbone.Model.extend({
-    defaults: {
-    }
-  });
-  
-  var user = new User();
-  
-  function initialize() {
-       
-       $.ajax({
-          type: 'GET',
-          url: 'http://g1.bootcamp.dev.globant.com/Twitter/api/service/UserCredentials.php',
-          data: {},
-          crossDomain: true,
-          success: function(res){
-              user.set( eval('(' + res + ')') );
-              //console.log( user.get("user_id") );
-          },
-          error: function(){
-              console.log('error getting session atributes')
-          }
-       });
-       
-       //console.log( user.get("user_id") );
-       return user;
-       
-  };
-  
-  return {
+    
+    var UserModel = Backbone.Model.extend({
+        
+        defaults: {
+            userName: "Sin nombre"
+        }
+        
+     });
+     
+     
+     var user = new UserModel();
+     
+     function initialize() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://g1.bootcamp.dev.globant.com/api/service/UserCredentials.php',
+                context: this,
+                data: {},
+                crossDomain: true,
+                success: function(res){
+                    var data =  eval('(' + res + ')');
+                    user.set({"userName" : data.screen_name });
+                },
+                error: function(){
+                    console.log('error getting session atributes')
+                }
+            });
+            
+            return user;
+        }
+    
+    return {
      initialize: initialize
-  }
+    }
+  
 });

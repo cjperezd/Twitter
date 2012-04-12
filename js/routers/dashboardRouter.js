@@ -17,9 +17,10 @@ define([
      * Create the view for the user model and change to the main page.  
      */
     dashboard: function(){
-       var user = UserModel;
-       user.initialize();
-       console.log('redirecting---');
+       var user = UserModel.initialize();
+       //user.initialize();
+       //user.bind( "change", function(){ console.log( "asd "+user.get("userName") );} );
+       
        //TODO create a view to show the user name and data in the page...
        //var userView = new UserView( {'model': user} );
        //userView.render();
@@ -27,7 +28,7 @@ define([
   		 var url = '#mainPage',
            effect = 'slideup',
            reverse = false,
-           changeHash = false;
+           changeHash = true;
        $.mobile.changePage( url, {transition: effect}, reverse, changeHash );
     },
     
